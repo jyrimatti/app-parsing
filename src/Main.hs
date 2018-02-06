@@ -1,10 +1,9 @@
 {-# LANGUAGE NoImplicitPrelude, FlexibleContexts, DeriveFunctor #-}
 module Main where
 
-import Prelude (String,($),(.),(==),(/=),Show,show,putStrLn)
-import Data.Functor (Functor,(<$>))
-import Data.Traversable (traverse)
-import Control.Applicative (Applicative(pure),Alternative(empty),many,(<|>),(<*>),(*>),(<*))
+import Prelude (String,($),(.),(/=),Show,show,putStrLn)
+import Data.Functor ((<$>))
+import Control.Applicative (many,(<|>),(*>),(<*))
 import Text.Megaparsec.String (Parser)
 import Text.Megaparsec (parse)
 import Text.Megaparsec.Char (char,space,satisfy,string)

@@ -18,8 +18,8 @@ cabal-version:       >=1.10
 executable app-parsing
   main-is:             Main.hs
   hs-source-dirs: src
-  other-modules:       Step1, Step2, Step3, Step4, Step5, Step6, Main2
+  other-modules:       Step1, Step2, Step3, Step4, Step5, Step6, Step7, Main2
   -- other-extensions:    
-  build-depends:       base >=4.9 && <4.10, megaparsec, parser-combinators
+  build-depends:       base >=4.9 && <4.10, transformers, megaparsec, parser-combinators
   default-language:    Haskell2010
   ghc-options: -Wall -Wincomplete-record-updates -Wmissing-import-lists -Wno-missing-signatures
