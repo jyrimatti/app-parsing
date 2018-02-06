@@ -1,4 +1,4 @@
-{-# LANGUAGE NoImplicitPrelude, DeriveFunctor #-}
+{-# LANGUAGE NoImplicitPrelude, DeriveFunctor, LambdaCase #-}
 module Step5 where
 
 import Prelude (String,undefined,($),(.),(==),(/=))
@@ -48,7 +48,7 @@ newtype Parser thing = Parser { parse :: String -> [(thing,String)] } deriving F
   
 -- eat characters as long as a predicate matches
 --satisfy :: (Char -> Bool) -> Parser Char
-satisfy pred = Parser $ \input -> case input of
+satisfy pred = Parser $ \case
     x:xs | pred x -> [(x,xs)]
     _             -> []
 

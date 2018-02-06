@@ -1,4 +1,4 @@
-{-# LANGUAGE NoImplicitPrelude, DeriveFunctor #-}
+{-# LANGUAGE NoImplicitPrelude, DeriveFunctor, LambdaCase #-}
 module Step6 where
 
 import Prelude (String,          ($),(.),(==),(/=))
@@ -37,7 +37,7 @@ space = many $ char ' '
 
 newtype Parser thing = Parser { parse :: String -> [(thing,String)] } deriving F.Functor
 
-satisfy pred = Parser $ \input -> case input of
+satisfy pred = Parser $ \case
     x:xs | pred x -> [(x,xs)]
     _             -> []
 
