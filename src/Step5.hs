@@ -1,7 +1,7 @@
 {-# LANGUAGE NoImplicitPrelude, DeriveFunctor, LambdaCase #-}
 module Step5 where
 
-import Prelude (String,undefined,($),(.),(==),(/=))
+import Prelude (String,undefined,Char,Bool,($),(.),(==),(/=))
 import qualified Data.Functor as F
 
 
@@ -47,7 +47,7 @@ space = many $ char ' '
 newtype Parser thing = Parser { parse :: String -> [(thing,String)] } deriving F.Functor
   
 -- eat characters as long as a predicate matches
---satisfy :: (Char -> Bool) -> Parser Char
+satisfy :: (Char -> Bool) -> Parser Char
 satisfy pred = Parser $ \case
     x:xs | pred x -> [(x,xs)]
     _             -> []

@@ -2,16 +2,20 @@
 module Main where
 
 import Prelude (String,($),(.),(/=),Show,show,putStrLn)
+
 import Data.Functor ((<$>))
 import Control.Applicative (many,(<|>),(*>),(<*))
-import Text.Megaparsec.String (Parser)
-import Text.Megaparsec (parse)
-import Text.Megaparsec.Char (char,space,satisfy,string)
 import Control.Applicative.Combinators (between)
+
+import Text.Megaparsec (parse)
+import Text.Megaparsec.String (Parser)
+import Text.Megaparsec.Char (char,space,satisfy,string)
+
 
 data Term = Str String
           | Concat [Term]
-          | Print Term deriving Show
+          | Print Term
+    deriving Show
 
 term :: Parser Term
 term = space *> (str <|> inparens (concat <|> print))
@@ -24,10 +28,7 @@ print  = Print  <$> (string "print" *> term)
 
 inparens = between (char '(') (char ')')
 
--- megaparsec 6.x
+-- included in megaparsec 6.x
 notChar = satisfy . (/=)
 
--- (print (+ "Hello " "World!")
-
---main :: IO ()
 main = putStrLn $ show $ parse term "" "(print (+ \"Hello \" \"World!\"))"

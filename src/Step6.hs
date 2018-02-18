@@ -1,14 +1,14 @@
 {-# LANGUAGE NoImplicitPrelude, DeriveFunctor, LambdaCase #-}
 module Step6 where
 
-import Prelude (String,          ($),(.),(==),(/=))
+import Prelude (String,          ($),(.),(==),(/=),Show,Maybe(Just,Nothing))
 import qualified Data.Functor as F
 import qualified Control.Applicative as A
 import qualified Data.Traversable as T
 
 data Term = Str String
           | Concat [Term]
-          | Print Term
+          | Print Term deriving Show
 
 term = space *> (str <|> inparens (concat <|> print))
 
@@ -53,10 +53,9 @@ many = A.many
 
 instance A.Applicative Parser where
   pure x = Parser $ \input -> [(x, input)]
-  Parser af <*> Parser aa = Parser $ \input -> do
-     (f, input1) <- af input
-     (a, input2) <- aa input1
-     [(f a, input2)]
+  Parser af <*> Parser aa = Parser $ \input ->
+     [(f a, input2) | (f, input1) <- af input, (a, input2) <- aa input1]
+     
 
 instance A.Alternative Parser where
   empty = Parser $ \_ -> []
@@ -66,3 +65,10 @@ instance A.Alternative Parser where
       r  -> r
 
 string = T.traverse char
+
+parseProgram s = case parse term s of
+  [(t,"")] -> Just t
+  _        -> Nothing
+  
+-- > parseProgram "(print (+ \"Hello \" \"World!\"))"
+-- Just (Print (Concat [Str "Hello ",Str "World!"]))

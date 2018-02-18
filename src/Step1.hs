@@ -4,7 +4,7 @@ module Step1 where
 import Prelude (String,undefined)
 
 
--- (print (+ "Hello " "World!")
+-- (print (+ "Hello " "World!"))
 
 data Term = Str String
           | Concat [Term]
